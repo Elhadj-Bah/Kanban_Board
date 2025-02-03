@@ -23,7 +23,7 @@ export const authenticateToken = (
         // split the token from the 'Bearer' keyword
         const token = authHeader.split(' ')[1];
 
-        const secretKey = process.env.env.JWT_SECRET_KEY || '';
+        const secretKey = process.env.env.JWT_SECRET_KEY || ''; 
 
         // verify the token
         jwt.verify(token, secretKey, (err, user) => {
