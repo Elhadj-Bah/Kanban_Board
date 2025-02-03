@@ -1,42 +1,68 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
+// Interface for the JWT payload
 
-// define the the interface for the user object for the JWT payload
 interface JwtPayload {
     username: string;
-    password: string;
 }
 
-// TODO: verify the token exists and add the user data to the request object
+// Middleware to authenticate the token
 
-export const authenticateToken = (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+    // TODO: verify the token exists and add the user data to the request object
 
-    // get the token from the request headers
+    // Get the the authorization header from the request
+
     const authHeader = req.headers.authorization;
 
-    if (authHeader) {
-        // split the token from the 'Bearer' keyword
+    //check if the authorization header is set
+       if (authHeader) {
+
+        // Get the token from the authorization header  
         const token = authHeader.split(' ')[1];
-
-        const secretKey = process.env.env.JWT_SECRET_KEY || ''; 
-
-        // verify the token
-        jwt.verify(token, secretKey, (err, user) => {
+        
+        // Get the secret key from the environment variables
+        const secretKey = process.env.SECRET_KEY; || '';
+    
+        // Verify the token
+        jwt.verify(token, secretKey, (err, user) => {   
             if (err) {
-                return res.sendStatus(403); //  send forbidden status if the token is invalid
+                return res.sendStatus(403); // Forbidden
             }
-            // add the user data to the request object
 
+            // Add the user data to the request object
             req.user = user as JwtPayload;
-             return next(); // continue to the next middleware
+            return next();
         });
     } else {
-        res.sendStatus(401); //  send unauthorized status if the token is missing
-    }
+        res.sendStatus(401); // Unauthorized
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 };
