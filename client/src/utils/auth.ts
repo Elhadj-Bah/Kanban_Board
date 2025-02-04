@@ -1,5 +1,5 @@
 import { JwtPayload, jwtDecode } from 'jwt-decode';
-import type { UserData } from '../interfaces/UserData';
+// import type { UserData } from '../interfaces/UserData';
 
 class AuthService {
   getProfile() {
@@ -18,10 +18,14 @@ class AuthService {
 
     try {
       const decoded = jwtDecode<JwtPayload>(token);
-      return decoded?.exp < Date.now() / 1000; {
 
-        return true;
-      }
+      if (decoded?.exp && decoded?.exp < Date.now() / 1000) {
+
+      return true;
+
+      } 
+    // if (decoded.exp)
+
     } catch (error) {
       // If there is an error, the token is invalid
       return false;
