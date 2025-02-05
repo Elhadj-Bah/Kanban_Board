@@ -7,12 +7,12 @@ const login = async (userInfo: UserLogin) => {
   try {
     // Make a POST request to the login route
     
-    const response = await fetch("/api/auth/login", {
+    const response = await fetch("/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(userInfo),
+      body: JSON.stringify(userInfo)
     });
     const data = await response.json();
     // Throw if response status is not okay
