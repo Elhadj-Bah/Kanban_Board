@@ -1,17 +1,17 @@
 import jwt from 'jsonwebtoken';
 // Middleware to authenticate the token
-export var authenticateToken = function (req, res, next) {
+export const authenticateToken = (req, res, next) => {
     // TODO: verify the token exists and add the user data to the request object
     // Get the the authorization header from the request
-    var authHeader = req.headers.authorization;
+    const authHeader = req.headers.authorization;
     //check if the authorization header is set
     if (authHeader) {
         // Get the token from the authorization header  
-        var token = authHeader.split(' ')[1];
+        const token = authHeader.split(' ')[1];
         // Get the secret key from the environment variables
-        var secretKey = process.env.JWT_SECRET_KEY || '';
+        const secretKey = process.env.JWT_SECRET_KEY || '';
         // Verify the token
-        jwt.verify(token, secretKey, function (err, user) {
+        jwt.verify(token, secretKey, (err, user) => {
             if (err) {
                 return res.sendStatus(403); // Forbidden
             }
@@ -25,4 +25,3 @@ export var authenticateToken = function (req, res, next) {
     }
     ;
 };
-//# sourceMappingURL=auth.js.map
