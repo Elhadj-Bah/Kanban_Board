@@ -4,4 +4,10 @@
 .env.test.local
 .env.production.local
 .env.local
-node_modules/
+# node_modules/
+
+server/.env
+server/.env.local
+server/.env.development.local
+server/node_modules
+server/dist
